@@ -45,31 +45,7 @@ public class BinaryToOctal
 		} catch (Exception e) {
 			// error
 		}
-		int lastDigit;
-		int counter = -1;
-		int octal = 0;
-		int sumSlot = 0;
-		int nCopy = n;
-		int innerCounter = 0;
-		while (nCopy != 0 && innerCounter < 3) {
-
-			lastDigit = nCopy % 10;
-
-			sumSlot = sumSlot + (int) Math.pow(2, innerCounter) * lastDigit;
-			nCopy = nCopy / 10;
-			innerCounter++;
-
-			if (innerCounter == 3 || nCopy == 0) {
-				counter++;
-				octal = octal + sumSlot * (int) Math.pow(10, counter);
-				innerCounter = 0;
-				sumSlot = 0;
-			}
-
-		}
-
-		return octal;
-
+	
 	}
 
 }
