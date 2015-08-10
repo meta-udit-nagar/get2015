@@ -1,70 +1,47 @@
-import java.util.Scanner;
-
-
 public class Dublicate {
 
-	public static void main(String[] args) {
-		int s;
-		int arr[]=new int[20];
-		Scanner sc= new Scanner(System.in);
-		System.out.println("Enter no Elements of Array to be entered: ");
-		s=sc.nextInt();
-		System.out.println("Enter Elements of Array: ");
-		for(int i=0;i<s;i++)
-		{
-			arr[i]=sc.nextInt();
-		}
-		int fynal[]=removeDuplicate(arr);
-		for(int i=0;i<fynal.length;i++)
-		{
-			
-			
-			
-			System.out.print(" "+fynal[i]);
-			
-		}
-		
-		
-	}
-	
-		
-		public static int[] removeDuplicate(int input[])
-		{
-	
-			int [] fynal= new int[10];
-		
-		int b=0,flag=0,count=1;
-		//int [] arr= {2,5,4,6,3,8,5,9,3,3,6,3,9,0};
-   fynal[0]=input[0];
-   System.out.println(" "+fynal[0]);
-		for(int i=1;i<input.length;i++)
-      {
-		    	b=0;
-			         while(b<count)
-		    		{
-		    			
-		    			if(input[i]==fynal[b])
-		    			{
-		    				
-		    				flag=-1;
-		    				break;
-		    			}
-		    			
-		    			
-		    			b++;
-		    		}
-		
-      
-      if(flag==0)
-      {
-    	 
-    	  fynal[count++]=input[i];
-    	  
-    	  
-      }
-      
-      
-      }
+	public static int[] removeDuplicates(int[] input) {
 
-    return fynal;
-}}
+		/* radix sort */
+
+		int count, first = input[0], exp = 1, n = input.length;
+		int[] b = new int[10];
+		for (count = 1; count < n; count++)
+			if (input[count] > first)
+				first = input[count];
+		while (first / exp > 0) {
+			int[] bucket = new int[10];
+
+			for (count = 0; count < n; count++)
+				bucket[(input[count] / exp) % 10]++;
+			for (count = 1; count < 10; count++)
+				bucket[count] += bucket[count - 1];
+			for (count = n - 1; count >= 0; count--)
+				b[--bucket[(input[count] / exp) % 10]] = input[count];
+			for (count = 0; count < n; count++)
+				input[count] = b[count];
+			exp *= 10;
+		}
+
+		/*------*/
+		int j = 0;
+		int i = 1;
+		if (input.length < 2) {
+			return input;
+		}
+		while (i < input.length) {
+			if (input[i] == input[j]) {
+				i++;
+			} else {
+				input[++j] = input[i++];
+			}
+		}
+		int[] output = new int[j + 1];
+		for (int k = 0; k < output.length; k++) {
+			output[k] = input[k];
+		}
+
+		return output;
+	}
+
+}
