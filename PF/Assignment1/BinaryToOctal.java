@@ -1,45 +1,75 @@
-
-public class BinaryToOctal {
-
-	
-	
-public static int binaryToOctal(int n)
+public class BinaryToOctal
 {
-	int lastDigit,counter=-1;
-	int octal=0,sumSlot=0;
-	while(n!=0)
+
+	public static int convertBinaryToOctal(int n) 
 	{
-		int innerCounter=0;
-		while(n!=0 && innerCounter<3)
-		{
-			 lastDigit=n%10;
-			sumSlot=sumSlot+(int)Math.pow(2, innerCounter)*lastDigit;
-			n=n/10;
-			innerCounter++;
-					
+		try {
+
+			int lastDigit;
+			int counter = -1;
+			int octal = 0;
+			int sumSlot = 0;
+			int nCopy = n;
+			int x;
+			int innerCounter = 0;
+			while (nCopy != 0 && innerCounter < 3) {
+
+				lastDigit = nCopy % 10;
+
+				if (lastDigit > 1) {
+
+					throw new Exception();
+				}
+
+				if (innerCounter == 0) {
+					x = 1;
+
+				} else
+					x = (2 << (innerCounter - 1));
+
+				sumSlot = sumSlot + x * lastDigit;
+				nCopy = nCopy / 10;
+				innerCounter++;
+
+				if (innerCounter == 3 || nCopy == 0) {
+					counter++;
+					octal = octal + sumSlot * (int) Math.pow(10, counter);
+					innerCounter = 0;
+					sumSlot = 0;
+				}
+
+			}
+
+			return octal;
+
+		} catch (Exception e) {
+			// error
 		}
-		
-		counter++;
-	octal=octal+sumSlot*(int)Math.pow(10, counter);
-		
-		sumSlot=0;
+		int lastDigit;
+		int counter = -1;
+		int octal = 0;
+		int sumSlot = 0;
+		int nCopy = n;
+		int innerCounter = 0;
+		while (nCopy != 0 && innerCounter < 3) {
 
-		
+			lastDigit = nCopy % 10;
+
+			sumSlot = sumSlot + (int) Math.pow(2, innerCounter) * lastDigit;
+			nCopy = nCopy / 10;
+			innerCounter++;
+
+			if (innerCounter == 3 || nCopy == 0) {
+				counter++;
+				octal = octal + sumSlot * (int) Math.pow(10, counter);
+				innerCounter = 0;
+				sumSlot = 0;
+			}
+
+		}
+
+		return octal;
+
 	}
-	
-	return octal;	
-
-}
-	
-public static void main(String args[])
-{
-	
-BinaryToOctal binarytooctal=new BinaryToOctal();
-
-int octal=binarytooctal.binaryToOctal(11111);
-System.out.println(""+octal);
-
-}
-
 
 }
