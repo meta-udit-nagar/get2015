@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-
 public class JoinSortedArrayTest {
 
 	@BeforeClass
@@ -27,12 +26,24 @@ public class JoinSortedArrayTest {
 
 	@Test
 	public void test() {
-		JoinSortedArray array= new JoinSortedArray();
-		int a[]={1,2,3};
-		int b[]={4,5,6};
-	    int c[]=new int[]{1,2,3,4,5,6};
-	    for(int loopCount=0;loopCount<c.length;loopCount++)
-	assertEquals(c[loopCount], array.merge(a, 3, b, 3)[loopCount]);
+
+		int a[] = { 1, 2 };
+		int b[] = { 4, 5, 6 };
+		int c[] = new int[a.length + b.length];
+		int cExpected[] = new int[] { 1, 2, 4, 5, 6 };
+		assertArrayEquals(cExpected, JoinSortedArray.join(a, 2, b, 3, c));
+
+		int a1[] = { 1, 2, 3 };
+		int b1[] = { 1, 2, 3 };
+		int c1[] = new int[a1.length + b1.length];
+		int cExpected1[] = new int[] { 1, 1, 2, 2, 3, 3 };
+		assertArrayEquals(cExpected1, JoinSortedArray.join(a1, 3, b1, 3, c1));
+
+		int a2[] = new int[0];
+		int b2[] = { 4, 5, 6 };
+		int c2[] = new int[a2.length + b2.length];
+		int cExpected2[] = new int[] { 4, 5, 6 };
+		assertArrayEquals(cExpected2, JoinSortedArray.join(a2, 0, b2, 3, c2));
 	}
 
 }
