@@ -25,10 +25,14 @@ public class PascalTringleTest {
 
 	@Test
 	public void testSpaces() {
-		assertEquals("    ", PascalTringle.spaces(1, 5));
-		assertEquals("", PascalTringle.spaces(5, 5));
-		assertEquals(" ", PascalTringle.spaces(6, 5));
-		assertEquals("    ", PascalTringle.spaces(9, 5));
+		assertEquals(4, PascalTringle.spaces(1, 5).length());
+		assertEquals(0, PascalTringle.spaces(5, 5).length());
+		assertEquals(1, PascalTringle.spaces(6, 5).length());
+		assertEquals(4, PascalTringle.spaces(9, 5).length());
+		assertEquals("wrong Input", PascalTringle.spaces(100, 2));
+		assertEquals("wrong Input", PascalTringle.spaces(-10, 1));
+		assertEquals("wrong Input", PascalTringle.spaces(10, -20));
+
 	}
 
 	@Test
@@ -37,6 +41,8 @@ public class PascalTringleTest {
 		assertEquals("1", PascalTringle.numbers(1, 5));
 		assertEquals("1234321", PascalTringle.numbers(6, 5));
 		assertEquals("1", PascalTringle.numbers(9, 5));
+		assertEquals("Wrong Input", PascalTringle.numbers(100, 5));
+		assertEquals("Wrong Input", PascalTringle.numbers(-9, 5));
 	}
 
 	@Test
