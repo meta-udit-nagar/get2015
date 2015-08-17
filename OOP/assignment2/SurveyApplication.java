@@ -1,181 +1,218 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
-public class SurveyApplication {
-	private static ArrayList<Question> questionList = new ArrayList<Question>();
-	private static ArrayList<Particpant> participantList = new ArrayList<Particpant>();
+public class SurveySystem {
 
-	public static void main(String args[]) {
-		questionList.add(new Question("Text", "Give your brief feedback"));
-		questionList.add(new Question("Multiple Choice",
-				"how do you rate our company?\n1-excillent 2-good 3-bad"));
-		questionList
-				.add(new Question(
-						"Multiple Selected",
-						"what are the qualities of our company\nfreedom/healthy environment/low work load/good boses"));
-		int good = 0;
-		int excillent = 0;
-		int bad = 0;
-		String personName = "";
+	static ArrayList<Participant> participantList = new ArrayList<Participant>();
+	static ArrayList<Question> questionList = new ArrayList<Question>();
+
+	static ArrayList<Question> genrateQuestions() {
+
+		final String COMMA_DELIMITER = ",";
+		final String url = "D://Question/question.csv";
+		ArrayList<Question> questionList = new ArrayList<Question>();
+
+		BufferedReader fileReader = null;
+		try {
+
+			String line = "";
+			fileReader = new BufferedReader(new FileReader(url));// file reading
+			fileReader.readLine();
+			while ((line = fileReader.readLine()) != null) {
+
+				Question question = new Question();
+				String[] tokens = line.split(COMMA_DELIMITER);// separator
+				if (tokens.length > 0) {
+					question.setOptions(tokens[2]);
+					question.setQuestion(tokens[0]);
+					if (tokens[1].equals("Multi Select"))
+						question.type = Question.Type.Multi_Select;
+					else if (tokens[1].equals("Single Select"))
+						question.type = Question.Type.Single_select;
+					else
+						question.type = Question.Type.Text;
+
+				}
+				questionList.add(question);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				fileReader.close();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+		}
+		return questionList;
+
+	}
+
+	static ArrayList<Participant> inputProcess(ArrayList<Question> questionList) {
 		Scanner scanner = new Scanner(System.in);
-		while (true) {
 
-			System.out.println("******Starting the Survry**********");
-			System.out.println("Enter the name of person ?");
-			personName = scanner.nextLine();
-			System.out.println("Starting of questions");
-			Question question[] = new Question[3];
+		Participant participant = new Participant();
+		ArrayList<String> questionsAnswered = new ArrayList<String>();
+		System.out.println("Enter participant name");
+		String name = scanner.next();
+		participant.setName(name);
+		for (Question question : questionList) {
+
+			System.out.println(question.getQuestion());
+			questionsAnswered.add(scanner.next());
+
+		}
+		participant.setQuestionAnswered(questionsAnswered);
+		participantList.add(participant);
+
+		System.out.println("do u want to continue?y/n");
+		if (scanner.next().equals("y")) {
+			System.out.print("hello");
+
+			return inputProcess(questionList);
+
+		} else {
+
+			return participantList;
+		}
+	}
+
+	static void genrateReport(int flag, ArrayList<Question> questList,
+			ArrayList<Participant> participantList) {
+
+		if (flag == 0) {
+
+			ArrayList<Integer> SQ = new ArrayList<Integer>();
 			int i = 0;
+			for (Question question : questList) {
+				System.out.println(question.getType());
+				if (question.getType().toString().equals("Single_select")) {
 
-			for (Question question1 : questionList) {
+					SQ.add(i);
 
-				String answer = "";
-				System.out.println(question1.getQuestion());
-				if (question1.getType().equals("Text")) {
-					answer = scanner.next();
-				} else if (question1.getType().equals("Multiple Choice")) {
-					int type = scanner.nextInt();
-					if (type == 1) {
-						answer = "excillent";
-						excillent++;
+				}
 
-					} else if (type == 2) {
+				i++;
 
-						answer = "good";
-						good++;
+			}
 
-					} else if (type == 3) {
-						answer = "bad";
-						bad++;
+			for (int j : SQ) {
 
-					} else {
+				HashMap<String, Integer> hm = new HashMap<String, Integer>();
 
-						System.out.println("wrong input restart the survey");
-						break;
-					}
+				for (Participant participant : participantList) {
 
-				} else {
-
-					while (true) {
-
-						String ans = scanner.next();
-						answer = answer + ans + " ";
-
-						System.out
-								.println("Do you want to add more qualities ?y/n");
-						String choice = scanner.next();
-						if (choice.equals("n")) {
-
-							break;
-
-						} else {
-							System.out.println(question1.getQuestion());
+					String ans = participant.getQuestionAnswered().get(j);
+					System.out.println(ans);
+					hm.put(ans, 0);
+					for (String key : hm.keySet()) {
+						int f = 0;
+						System.out.println(key);
+						if (key.equals(ans)) {
+							f = 1;
+							int x = hm.get(key);
+							hm.put(key, ++x);
+						}
+						if (f == 0) {
+							hm.put(ans, 1);
 
 						}
 
 					}
+					int sum = 0;
+					for (String key : hm.keySet()) {
+
+						sum = sum + hm.get(key);
+
+					}
+
+					System.out.println("Report qn no " + j + 1);
+					for (String key : hm.keySet()) {
+						double per = ((double) hm.get(key) / sum) * 100;
+						System.out.println(key + " " + per + "%");
+					}
 
 				}
 
-				question1.setAnswer(answer);
-				answer = null;
-				question[i++] = question1;
-
 			}
+		} else {
 
-			participantList.add(new Particpant(personName, 101, question));
+			for (Participant participant : participantList) {
+				int i = 0;
 
-			System.out
-					.println("Do you want to continue the survey for another person?...y/n");
-			String result = scanner.next();
-			if (result.equals("n")) {
+				System.out.println(participant.name);
+				for (Question question : questList) {
 
-				break;
+					System.out.println(question.getQuestion());
+					System.out.println(participant.questionAnswered.get(i++));
+
+				}
 
 			}
 
 		}
 
-		System.out.println("overall rating : single select 1/2/3\n");
+	}
 
-		int per = (excillent / participantList.size()) * 100;
-		System.out.println("1.excillent " + per + "\n");
+	public static void main(String args[]) {
 
-		per = (good / participantList.size()) * 100;
-		System.out.println("2.Good " + per + "\n");
-
-		per = (bad / participantList.size()) * 100;
-		System.out.println("2.Bad " + per + "\n");
-
-		for (Particpant particpant : participantList) {
-
-			System.out.println("Name of participant :" + particpant.getName());
-
-			System.out.println("******Answers**********");
-
-			for (int i = 0; i < particpant.getQuestion().length; i++) {
-				System.out.println("Qn " + i + 1
-						+ particpant.getQuestion()[i].getQuestion());
-				System.out.println("Answer :"
-						+ particpant.getQuestion()[i].getAnswer());
-
-			}
-		}
-
+		questionList = genrateQuestions();
+		participantList = inputProcess(questionList);
+		genrateReport(0, questionList, participantList);
+		genrateReport(1, questionList, participantList);
 	}
 
 }
 
 class Question {
-
-	private String type;
-	private String question;
-	private String answer;
-
-	public Question(String type, String question) {
-
-		this.type = type;
-		this.question = question;
-
+	public enum Type {
+		Single_select, Multi_Select, Text
 	}
 
-	public String getAnswer() {
-		return answer;
-	}
-
-	public void setAnswer(String answer) {
-		this.answer = answer;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
+	public Type type;
+	private String Question;
+	private String options;
 
 	public String getQuestion() {
-		return question;
+		return Question;
 	}
 
 	public void setQuestion(String question) {
-		this.question = question;
+		Question = question;
+	}
+
+	public String getOptions() {
+		return options;
+	}
+
+	public void setOptions(String options) {
+		this.options = options;
+	}
+
+	public Question() {
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
 	}
 
 }
 
-class Particpant {
-
-	private String name;
-	private int participantId = 0;
-	private Question question[];
-
-	public Particpant(String name, int participantId, Question[] question) {
-		this.name = name;
-		this.participantId = participantId;
-		this.question = question;
-	}
+class Participant {
+	String name;
+	ArrayList<String> questionAnswered;
 
 	public String getName() {
 		return name;
@@ -185,20 +222,12 @@ class Particpant {
 		this.name = name;
 	}
 
-	public int getParticipantId() {
-		return participantId;
+	public ArrayList<String> getQuestionAnswered() {
+		return questionAnswered;
 	}
 
-	public void setParticipantId(int participantId) {
-		this.participantId = participantId;
-	}
-
-	public Question[] getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(Question[] question) {
-		this.question = question;
+	public void setQuestionAnswered(ArrayList<String> questionAnswered) {
+		this.questionAnswered = questionAnswered;
 	}
 
 }
