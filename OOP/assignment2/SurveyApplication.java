@@ -11,11 +11,10 @@ public class SurveySystem {
 	static ArrayList<Participant> participantList = new ArrayList<Participant>();
 	static ArrayList<Question> questionList = new ArrayList<Question>();
 
-	static ArrayList<Question> genrateQuestions() {
+	static void genrateQuestions() {
 
 		final String COMMA_DELIMITER = ",";
 		final String url = "D://Question/question.csv";
-		ArrayList<Question> questionList = new ArrayList<Question>();
 
 		BufferedReader fileReader = null;
 		try {
@@ -31,70 +30,70 @@ public class SurveySystem {
 					question.setOptions(tokens[2]);
 					question.setQuestion(tokens[0]);
 					if (tokens[1].equals("Multi Select"))
-						question.type = Question.Type.Multi_Select;
+						question.type = Question.Type.MULTI_SELECT;
 					else if (tokens[1].equals("Single Select"))
-						question.type = Question.Type.Single_select;
+						question.type = Question.Type.SINGLE_SELECT;
 					else
-						question.type = Question.Type.Text;
+						question.type = Question.Type.TEXT;
 
 				}
 				questionList.add(question);
 			}
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.out.println("file not found");
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("error in input");
 		} finally {
 			try {
 				fileReader.close();
 			} catch (IOException e) {
 
-				e.printStackTrace();
+				System.out.println("error in input");
+				;
 			}
 		}
-		return questionList;
 
 	}
 
-	static ArrayList<Participant> inputProcess(ArrayList<Question> questionList) {
-		Scanner scanner = new Scanner(System.in);
+	static void inputProcess() {
+		while (true) {
+			Scanner scanner = new Scanner(System.in);
 
-		Participant participant = new Participant();
-		ArrayList<String> questionsAnswered = new ArrayList<String>();
-		System.out.println("Enter participant name");
-		String name = scanner.next();
-		participant.setName(name);
-		for (Question question : questionList) {
+			Participant participant = new Participant();
+			ArrayList<String> questionsAnswered = new ArrayList<String>();
+			System.out.println("Enter participant name");
+			String name = scanner.next();
+			participant.setName(name);
+			for (Question question : questionList) {
 
-			System.out.println(question.getQuestion());
-			questionsAnswered.add(scanner.next());
+				System.out.println(question.getQuestion());
+				questionsAnswered.add(scanner.next());
 
-		}
-		participant.setQuestionAnswered(questionsAnswered);
-		participantList.add(participant);
+			}
+			participant.setQuestionAnswered(questionsAnswered);
+			participantList.add(participant);
 
-		System.out.println("do u want to continue?y/n");
-		if (scanner.next().equals("y")) {
-			System.out.print("hello");
+			System.out.println("do u want to continue?y/n");
+			if (scanner.next().equals("y")) {
 
-			return inputProcess(questionList);
+				continue;
 
-		} else {
+			} else {
 
-			return participantList;
+				break;
+			}
 		}
 	}
 
-	static void genrateReport(int flag, ArrayList<Question> questList,
-			ArrayList<Participant> participantList) {
+	static void genrateReport(int flag) {
 
 		if (flag == 0) {
 
 			ArrayList<Integer> SQ = new ArrayList<Integer>();
 			int i = 0;
-			for (Question question : questList) {
+			for (Question question : questionList) {
 				System.out.println(question.getType());
-				if (question.getType().toString().equals("Single_select")) {
+				if (question.getType().equals(Question.Type.SINGLE_SELECT)) {
 
 					SQ.add(i);
 
@@ -127,19 +126,20 @@ public class SurveySystem {
 						}
 
 					}
-					int sum = 0;
-					for (String key : hm.keySet()) {
 
-						sum = sum + hm.get(key);
+				}
 
-					}
+				int sum = 0;
+				for (String key : hm.keySet()) {
 
-					System.out.println("Report qn no " + j + 1);
-					for (String key : hm.keySet()) {
-						double per = ((double) hm.get(key) / sum) * 100;
-						System.out.println(key + " " + per + "%");
-					}
+					sum = sum + hm.get(key);
 
+				}
+
+				System.out.println("Report qn no " + j + 1);
+				for (String key : hm.keySet()) {
+					double per = ((double) hm.get(key) / sum) * 100;
+					System.out.println(key + " " + per + "%");
 				}
 
 			}
@@ -149,7 +149,7 @@ public class SurveySystem {
 				int i = 0;
 
 				System.out.println(participant.name);
-				for (Question question : questList) {
+				for (Question question : questionList) {
 
 					System.out.println(question.getQuestion());
 					System.out.println(participant.questionAnswered.get(i++));
@@ -164,17 +164,17 @@ public class SurveySystem {
 
 	public static void main(String args[]) {
 
-		questionList = genrateQuestions();
-		participantList = inputProcess(questionList);
-		genrateReport(0, questionList, participantList);
-		genrateReport(1, questionList, participantList);
+		genrateQuestions();
+		inputProcess();
+		genrateReport(0);
+		genrateReport(1);
 	}
 
 }
 
 class Question {
 	public enum Type {
-		Single_select, Multi_Select, Text
+		SINGLE_SELECT, MULTI_SELECT, TEXT
 	}
 
 	public Type type;
