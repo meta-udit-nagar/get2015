@@ -42,7 +42,7 @@ public class RailwayReservationSystem {
 
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println("File not found");
+			System.out.println("error in input");
 		} catch (IOException e) {
 			System.out.println("error in input");
 		} finally {
@@ -138,14 +138,7 @@ public class RailwayReservationSystem {
 			}
 			noOfSeat = scanner.nextInt();
 			if (noOfSeat <= getAvailable(trainName)) {
-				int amount = 0;
-				if (type.equals(Train.Type.PASSENGER)) {
-					amount = 100 * noOfSeat;
-				} else {
-
-					amount = 50 * noOfSeat;
-
-				}
+				int amount = getFare(100, 50, type, noOfSeat);
 
 				System.out
 						.println("enter the mode of payment\n1-cc\n\2-wallet\n3-netbanking");
@@ -191,6 +184,20 @@ public class RailwayReservationSystem {
 
 		}
 
+	}
+
+	static int getFare(int passengerRate, int goodsRate, Train.Type type,
+			int noOfSeat) {
+		int amount = 0;
+		if (type.equals(Train.Type.PASSENGER)) {
+			amount = 100 * noOfSeat;
+		} else {
+
+			amount = 50 * noOfSeat;
+
+		}
+
+		return amount;
 	}
 
 	public static void main(String args[]) {
@@ -271,16 +278,13 @@ class Train {
 	};
 }
 
-class Payment {
+abstract class Payment {
 
-	public int amount;
+	
 
-	public void process(int amount) {
-	}
-
+	public void process(int amount){} 
 }
-
-class CcPayment extends Payment {
+ class CcPayment extends Payment {
 
 	public void process(int amount) {
 		Scanner scanner = new Scanner(System.in);
@@ -288,7 +292,7 @@ class CcPayment extends Payment {
 		int ccno = scanner.nextInt();
 		System.out.println("Enter Cvv");
 		int cvv = scanner.nextInt();
-		this.amount = amount;
+		
 		System.out.println("Your ticket is being successfully boocked");
 	}
 
@@ -297,7 +301,7 @@ class CcPayment extends Payment {
 class WalletPayment extends Payment {
 
 	public void process(int amount) {
-		this.amount = amount;
+	
 		System.out.println("Your ticket is being successfully boocked");
 	}
 
@@ -314,7 +318,6 @@ class NetBankingPayment extends Payment {
 		System.out.println("Enter password");
 		String password = scanner.next();
 
-		this.amount = amount;
 		System.out.println("Your ticket is being successfully boocked");
 	}
 
