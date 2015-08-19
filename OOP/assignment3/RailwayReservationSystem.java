@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
-
+ 
 public class RailwayReservationSystem {
 	public static ArrayList<Train> trainList = new ArrayList<Train>();
 
@@ -143,19 +143,21 @@ public class RailwayReservationSystem {
 				System.out
 						.println("enter the mode of payment\n1-cc\n\2-wallet\n3-netbanking");
 				int in = scanner.nextInt();
+				Payment payment;
 				if (in == 1) {
-					CcPayment ccPayment = new CcPayment();
-					ccPayment.process(amount);
+					 payment = new CcPayment();
+					
 
 				} else if (in == 2) {
-					WalletPayment walletPayment = new WalletPayment();
-					walletPayment.process(amount);
+					 payment = new WalletPayment();
+					
 
 				} else {
-					NetBankingPayment bankingPayment = new NetBankingPayment();
-					bankingPayment.process(amount);
+					 payment = new NetBankingPayment();					
+					
 
 				}
+				   payment.process(amount);
 
 				for (Train train : trainList) {
 
