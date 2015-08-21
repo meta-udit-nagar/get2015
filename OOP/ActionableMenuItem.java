@@ -1,25 +1,22 @@
-import java.io.IOException;
 
+public class ActionableMenuItem implements MenuItem {
+	Action action;
+	String displayText;
 
-
-public class ActionableMenuItem implements MenuItem{
-Action action = new InputAction();
-	String displayText; 
-	
-	ActionableMenuItem(String displayText) {
+	ActionableMenuItem(String displayText, Action action) {
 		this.displayText = displayText;
+		this.action = action;
 	}
+
 	@Override
 	public void display() {
 		System.out.println(displayText);
-		
+
 	}
 
 	@Override
-	public void takeAction(int input) {	
-		action.perform(input);
-		}
-		
+	public void takeAction(int input) {
+		action.perform();
 	}
 
-
+}
