@@ -1,0 +1,42 @@
+public class PaymentMenu extends Menu{
+
+	public PaymentMenu() {
+		Action action=new CCAction();
+		addMenuItem(new ActionableMenuItem("enter 1 for cc",action));
+		Action action1=new WalletAction();
+		addMenuItem(new ActionableMenuItem("enter 2 for wallet payment",action1));
+		Action action2=new NetBankingAction();
+		addMenuItem(new ActionableMenuItem("enter 3 for net banking",action2));
+	}
+
+	class CCAction implements Action
+	{
+		@Override
+		public void perform() {
+			// TODO Auto-generated method stub
+			Payment payment = new CcPayment();
+			payment.process();
+		}
+	}
+	
+	class WalletAction implements Action
+	{
+		@Override
+		public void perform() {
+			// TODO Auto-generated method stub
+			Payment payment = new WalletPayment();
+			payment.process();
+		}
+	}
+	
+	
+	class NetBankingAction implements Action
+	{
+		@Override
+		public void perform() {
+			// TODO Auto-generated method stub
+			Payment payment = new NetBankingPayment();
+			payment.process();
+		}
+	}
+}
