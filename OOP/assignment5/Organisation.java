@@ -1,51 +1,37 @@
- public class Organisation extends Entity implements Record{
-    
-    long phoneNumber;
-    String placementRecord;
-    
+package socialNetworking;
 
-    public Organisation(long phoneNumber,String email,String name){
-        super(email,name);
-        this.phoneNumber=phoneNumber;
-    }
+public class Organisation extends Entity {
 
-    
- 
-    @Override
-    public void setInterest(String interest) {
-         
-        
-    }
+	String dateOfEstablishment;
+	int turnOver;
 
-    @Override
-    public String getInterest() {
-     
-    	 throw new UnsupportedOperationException("Not supported yet.");
-    }
+	public String getDateOfEstablishment() {
+		return dateOfEstablishment;
+	}
 
-    @Override
-    public void setPlacementRecord(String placementRecord) {
-    	this.placementRecord=placementRecord;
-         }
+	public void setDateOfEstablishment(String dateOfEstablishment) {
+		this.dateOfEstablishment = dateOfEstablishment;
+	}
 
-    @Override
-    public String getPlacementRecord() {
-        return placementRecord;
-    }
-    
-    public void showFriends(){
-    
-    if(friends.isEmpty()){
-              System.out.println("Sorry !! You Don't have any friend in your Friend \n");
-          }
-    else{
-        System.out.println("\nYour Friend List ---");
-        int p=0;
-      for(String friendName:friends){
-          
-          System.out.println(++p+" "+friendName);
-          
-      }
-    }
-    }
+	public int getTurnOver() {
+		return turnOver;
+	}
+
+	public void setTurnOver(int turnOver) {
+		this.turnOver = turnOver;
+	}
+
+	public Entity getOrganisationRecord() {
+		Entity record = (Entity) getRecord();
+		Entity entity = new Entity();
+		entity.setEmail(record.getEmail());
+		entity.setDescribtion(record.getDescribtion());
+		entity.setName(record.getName());
+		entity.setPhoneNo(record.getPhoneNo());
+		((Organisation) entity)
+				.setDateOfEstablishment(getDateOfEstablishment());
+		((Organisation) entity).setTurnOver(getTurnOver());
+		return entity;
+
+	}
 }
