@@ -1,48 +1,37 @@
-public class Person extends Entity implements Record {
+package socialNetworking;
 
-	long phoneNumber;
+public class Person extends Entity {
+
+	String age;
 	String interest;
 
-	// Iterator<String> personFriend;
-	public Person(long phoneNumber, String email, String name) {
-		super(email, name);
-		this.phoneNumber = phoneNumber;
+	public String getAge() {
+		return age;
 	}
 
-	@Override
-	public void setInterest(String interest) {
-		this.interest = interest;
-
+	public void setAge(String age) {
+		this.age = age;
 	}
 
-	@Override
 	public String getInterest() {
-
 		return interest;
 	}
 
-	@Override
-	public void setPlacementRecord(String placementRecord) {
+	public void setInterest(String interest) {
+		this.interest = interest;
 	}
 
-	@Override
-	public String getPlacementRecord() {
-		throw new UnsupportedOperationException("Not supported yet.");
+	public Entity getPersonRecord() {
+		Entity record = (Entity) getRecord();
+		Entity entity = new Entity();
+		entity.setEmail(record.getEmail());
+		entity.setDescribtion(record.getDescribtion());
+		entity.setName(record.getName());
+		entity.setPhoneNo(record.getPhoneNo());
+		((Person) entity).setAge(getAge());
+		((Person) entity).setInterest(getInterest());
+		return entity;
+
 	}
 
-	public void showFriends() {
-
-		if (friends.isEmpty()) {
-			System.out
-					.println("Sorry !! You Don't have any friend in your Friend \n");
-		} else {
-			System.out.println("\nYour Friend List ---");
-			int p = 0;
-			for (String friendName : friends) {
-
-				System.out.println(++p + " " + friendName);
-
-			}
-		}
-	}
 }
