@@ -1,0 +1,236 @@
+package socialNetworking;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Set;
+
+public class SocialNetworkingMain {
+
+	private static void addPersonRecordFromFile() {
+
+		final String COMMA_DELIMITER = ",";
+		final String url = "D://Person/PersonDetails.csv";
+
+		BufferedReader fileReader = null;
+		try {
+
+			String line = "";
+			fileReader = new BufferedReader(new FileReader(url));// file reading
+			fileReader.readLine();
+
+			while ((line = fileReader.readLine()) != null) {
+
+				Entity person = new Person();
+				String[] tokens = line.split(COMMA_DELIMITER);// separator
+
+				if (tokens.length > 0) {
+
+					person.setName(tokens[0]);
+					person.setDescribtion(tokens[1]);
+					person.setEmail(tokens[2]);
+					person.setPhoneNo(tokens[3]);
+					((Person) person).setAge(tokens[4]);
+					((Person) person).setInterest(tokens[5]);
+
+				}
+				Graph.setOfNodes.add(person);
+
+			}
+
+		} catch (FileNotFoundException e) {
+			System.out.println("error in input");
+		} catch (IOException e) {
+			System.out.println("error in input");
+		} finally {
+
+			try {
+				fileReader.close();
+			} catch (IOException e) {
+				System.out.println("error in file input");
+
+			}
+
+		}
+
+	}
+
+	private static void addOrganisationRecordFromFile() {
+
+		final String COMMA_DELIMITER = ",";
+		final String url = "D://Person/OrganisationDetails.csv";
+
+		BufferedReader fileReader = null;
+		try {
+
+			String line = "";
+			fileReader = new BufferedReader(new FileReader(url));// file reading
+			fileReader.readLine();
+
+			while ((line = fileReader.readLine()) != null) {
+
+				Entity Organisation = new Organisation();
+				String[] tokens = line.split(COMMA_DELIMITER);// separator
+
+				if (tokens.length > 0) {
+
+					Organisation.setName(tokens[0]);
+					Organisation.setDescribtion(tokens[1]);
+					Organisation.setEmail(tokens[2]);
+					Organisation.setPhoneNo(tokens[3]);
+					((Organisation) Organisation)
+							.setDateOfEstablishment(tokens[4]);
+					((Organisation) Organisation).setTurnOver(Integer
+							.parseInt(tokens[5]));
+
+				}
+				Graph.setOfNodes.add(Organisation);
+
+			}
+
+		} catch (FileNotFoundException e) {
+			System.out.println("error in input");
+		} catch (IOException e) {
+			System.out.println("error in input");
+		} finally {
+
+			try {
+				fileReader.close();
+			} catch (IOException e) {
+				System.out.println("error in file input");
+
+			}
+
+		}
+
+	}
+
+	public static void printSocialNetwork(SocialNetwork socialNetwork) {
+		for (Node entity : SocialNetwork.setOfNodes) {
+			System.out.println(((Entity) entity).getName());
+			for (Entity friend : ((Entity) entity).getFriends()) {
+				System.out.print(" :");
+				System.out.print(" ," + friend.getName() + "");
+
+			}
+
+		}
+	}
+
+	public static void printSummery(SocialNetwork socialNetwork) {
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("Type of entity \n1-person\n2-Organisation");
+		int ch = scanner.nextInt();
+		if (ch == 1) {
+			System.out.println("enter the name of person");
+			String personToSearch = scanner.next();
+			Entity entity = socialNetwork.searchEntityByName(personToSearch);
+			System.out.println("name :" + entity.getName());
+			System.out.println("email :" + entity.getEmail());
+			System.out.println("phoneno :" + entity.getPhoneNo());
+			System.out.println("describtion :" + entity.getDescribtion());
+			System.out.println("age :" + ((Person) entity).getAge());
+			System.out.println("Interest :" + ((Person) entity).getInterest());
+
+		} else {
+
+			System.out.println("enter the name of Organisation");
+			String organisationToSearch = scanner.next();
+			Entity entity = socialNetwork
+					.searchEntityByName(organisationToSearch);
+			System.out.println("name :" + entity.getName());
+			System.out.println("email :" + entity.getEmail());
+			System.out.println("phoneno :" + entity.getPhoneNo());
+			System.out.println("describtion :" + entity.getDescribtion());
+			System.out.println("Date of establishment  :"
+					+ ((Organisation) entity).getDateOfEstablishment());
+			System.out.println("Turn Over :"
+					+ ((Organisation) entity).getTurnOver() + "crore");
+
+		}
+	}
+
+	public static void InputProcess() {
+
+		while (true) {
+			Scanner scanner = new Scanner(System.in);
+			addOrganisationRecordFromFile();
+			addPersonRecordFromFile();
+			SocialNetwork socialNetwork = new SocialNetwork();
+			System.out.println("enter your name");
+			String name = scanner.next();
+			Entity set = socialNetwork.searchEntityByName(name);
+
+			System.out.println("your name :" + set.getName());
+			System.out.println("your email :" + set.getEmail());
+			System.out.println("Your phoneno :" + set.getPhoneNo());
+			System.out.println("your describtion :" + set.getDescribtion());
+
+			while (true) {
+				System.out.println("\npress 1 to see your friend List");
+				System.out.println("press 2 to add your friend");
+				System.out.println("press 3 to remove your friend");
+				System.out.println("press 4 for Sign Out");
+				System.out.println("press 5 exit the application");
+				System.out.println("press 6 See summerries");
+				System.out.println("press 7 view Social network");
+
+				int choice = scanner.nextInt();
+				if (choice == 1) {
+					ArrayList<Entity> friends = set.getFriends();
+					boolean flag = true;
+					for (Entity friend : friends) {
+						flag = false;
+						System.out.println(friend.getName());
+
+					}
+					if (flag) {
+						System.out.println("you have no friends");
+
+					}
+				}
+
+				if (choice == 2) {
+					System.out
+							.println("please enter the name whom you want to add friend");
+					String newFriend = scanner.next();
+
+					Entity entity = socialNetwork.searchEntityByName(newFriend);
+					socialNetwork.connect(set, entity);
+				}
+
+				if (choice == 3) {
+					System.out
+							.println("please enter your frind's name whom you want to remove");
+					String friendToRemove = scanner.next();
+					Entity entity = socialNetwork
+							.searchEntityByName(friendToRemove);
+					socialNetwork.disconnect(set, entity);
+				}
+				if (choice == 4) {
+					break;
+				}
+				if (choice == 5) {
+					System.exit(0);
+				}
+				if (choice == 6) {
+
+					printSummery(socialNetwork);
+				}
+				if (choice == 7) {
+					printSocialNetwork(socialNetwork);
+				}
+			}
+
+		}
+	}
+
+	public static void main(String args[]) {
+		InputProcess();
+
+	}
+}
