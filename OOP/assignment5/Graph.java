@@ -1,25 +1,53 @@
- 
-public class Graph implements Connection{
+package socialNetworking;
 
-    @Override
-    public void addConnection(Entity e1, Entity e2) {
-        e1.friends.add(e2.email);
-        e2.friends.add(e1.email);
-        
-    
-    
-    }
+import java.util.HashSet;
+import java.util.Set;
 
-    @Override
-    public void removeConnection(Entity e1, Entity e2) {
-    e1.friends.remove(e2.email);
-    e2.friends.remove(e1.email);
-    }
+public class Graph {
+	public static Set<Node> setOfNodes = new HashSet<Node>();
+	public static Set<Connection> setOfConnection = new HashSet<Connection>();
 
-    @Override
-    public String findFriend(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
+	public void addNode(Node node) {
+		setOfNodes.add(node);
+
+	}
+
+	public void removeNode(Node node) {
+		setOfNodes.remove(node);
+
+	}
+
+	public Node searchByName(String name) {
+		Node node = new Node();
+		for (Node extractedNode : setOfNodes) {
+			if (extractedNode.getName().equals(name)) {
+				node = extractedNode;
+				break;
+			}
+
+		}
+
+		return node;
+
+	}
+
+	public void addEdge(Node node1, Node node2) {
+		Connection connection = new Connection(node1, node2);
+		setOfConnection.add(connection);
+	}
+
+	public void removeEdge(Node node1, Node node2) {
+		for (Connection connection : setOfConnection) {
+			if (connection.getNode1().equals(node1)
+					&& connection.getNode2().equals(node2)
+					|| connection.getNode1().equals(node2)
+					&& connection.getNode2().equals(node1)) {
+				setOfConnection.remove(connection);
+				break;
+
+			}
+		}
+
+	}
+
 }
