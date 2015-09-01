@@ -5,9 +5,4 @@ class Task {
 		this.priority = priority;
 	}
 
-	@Override
-	public String toString() {
-		return "Task [priority=" + priority + "]";
-	}
-
 }
