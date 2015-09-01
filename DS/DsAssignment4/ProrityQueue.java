@@ -28,9 +28,8 @@ class PriorityQueue {
 		return heapSize;
 	}
 
-	public void insert(int priority) {
-		Task newJob = new Task(priority);
-
+	public void insert(Task newJob) {
+		
 		heap[++heapSize] = newJob;
 
 		int pos = heapSize;
