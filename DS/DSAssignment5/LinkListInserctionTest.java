@@ -15,52 +15,49 @@ public class LinkListInserctionTest {
 	@Test
 	public void testInsertAtMid() {
 		LinkListInserction inserction = new LinkListInserction();
-		inserction.list.add(1);
-		inserction.list.add(6);
-		inserction.list.add(3);
-		inserction.list.sort(null);
 		inserction.insert(2);
+		inserction.insert(1);
+		inserction.insert(6);
+		inserction.insert(3);
+
 		List<Integer> expectedList = new LinkedList<Integer>();
 		expectedList.add(1);
 		expectedList.add(2);
 		expectedList.add(3);
 		expectedList.add(6);
-		assertEquals(expectedList, inserction.list);
+		assertEquals(expectedList, inserction.display());
 
 	}
 
 	@Test
 	public void testInsertAtFirst() {
 		LinkListInserction inserction = new LinkListInserction();
-		inserction.list.add(1);
-		inserction.list.add(6);
-		inserction.list.add(3);
-		inserction.list.sort(null);
+		inserction.insert(1);
+		inserction.insert(6);
+		inserction.insert(3);
 		inserction.insert(0);
 		List<Integer> expectedList = new LinkedList<Integer>();
 		expectedList.add(0);
 		expectedList.add(1);
 		expectedList.add(3);
 		expectedList.add(6);
-		assertEquals(expectedList, inserction.list);
+		assertEquals(expectedList, inserction.display());
 
 	}
 
 	@Test
 	public void testInsertAtLast() {
 		LinkListInserction inserction = new LinkListInserction();
-		inserction.list.add(1);
-		inserction.list.add(6);
-		inserction.list.add(3);
-		inserction.list.sort(null);
+		inserction.insert(1);
+		inserction.insert(6);
+		inserction.insert(3);
 		inserction.insert(9);
 		List<Integer> expectedList = new LinkedList<Integer>();
 		expectedList.add(1);
 		expectedList.add(3);
 		expectedList.add(6);
 		expectedList.add(9);
-		assertEquals(expectedList, inserction.list);
+		assertEquals(expectedList, inserction.display());
 
 	}
-
 }
