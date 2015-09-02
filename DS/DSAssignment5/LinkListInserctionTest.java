@@ -19,7 +19,7 @@ public class LinkListInserctionTest {
 		inserction.list.add(6);
 		inserction.list.add(3);
 		inserction.list.sort(null);
-		inserction.insert(2, 0);
+		inserction.insert(2);
 		List<Integer> expectedList = new LinkedList<Integer>();
 		expectedList.add(1);
 		expectedList.add(2);
@@ -36,7 +36,7 @@ public class LinkListInserctionTest {
 		inserction.list.add(6);
 		inserction.list.add(3);
 		inserction.list.sort(null);
-		inserction.insert(0, 0);
+		inserction.insert(0);
 		List<Integer> expectedList = new LinkedList<Integer>();
 		expectedList.add(0);
 		expectedList.add(1);
@@ -53,7 +53,7 @@ public class LinkListInserctionTest {
 		inserction.list.add(6);
 		inserction.list.add(3);
 		inserction.list.sort(null);
-		inserction.insert(9, 0);
+		inserction.insert(9);
 		List<Integer> expectedList = new LinkedList<Integer>();
 		expectedList.add(1);
 		expectedList.add(3);
