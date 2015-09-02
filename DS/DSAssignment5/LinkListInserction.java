@@ -2,10 +2,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class LinkListInserction {
-
+	private int index;
 	public List<Integer> list = new LinkedList<Integer>();
 
-	public void insert(int item, int index) {
+	public void insert(int item) {
 
 		if (index == list.size()) {
 
@@ -13,8 +13,8 @@ public class LinkListInserction {
 		} else
 
 		if ((int) list.get(index) < item) {
-
-			insert(item, index + 1);
+			index++;
+			insert(item);
 
 		} else {
 			list.add(index, item);
