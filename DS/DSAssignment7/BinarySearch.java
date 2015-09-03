@@ -3,7 +3,15 @@ public class BinarySearch {
 	private boolean flag = false;
 	private int position = 0;
 
-	public int binarySearch(int input[], int start, int end, int key) {
+	public int binarySearch(int input[], int key) {
+		int start = 0;
+		int end = input.length - 1;
+		int position = binarySearch(input, start, end, key);
+		return position;
+
+	}
+
+	private int binarySearch(int input[], int start, int end, int key) {
 
 		if (start > end) {
 			return (position + 1);
