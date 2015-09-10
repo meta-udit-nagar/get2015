@@ -201,8 +201,7 @@ SELECT member_name FROM members  WHERE category in(SELECT category FROM members 
 SELECT bi.issue_date,bi.accessiON_no,bi.member_id,ifnull(br.return_date,"") AS Return_date FROM book_issue bi LEFT OUTER JOIN book_return br ON bi.accessiON_no=br.accessiON_no AND bi.member_id=br.member_id; 
 
 -- qn no 2
-
-SELECT bi.issue_date,bi.accessiON_no,bi.member_id,ifnull(br.return_date,"") AS Return_date 
-FROM book_issue bi LEFT OUTER JOIN book_return br ON bi.accessiON_no=br.accessiON_no AND bi.member_id=br.member_id ,members m 
-WHERE m.member_id=bi.member_id 
-ORDER BY bi.issue_date ASC; 
+Select bi.issue_date,bi.accession_no,bi.member_id,ifnull(br.return_date,"") 
+as Return_date 
+from book_issue bi left join book_return br 
+on bi.accession_no=br.accession_no and bi.member_id=br.member_id 
