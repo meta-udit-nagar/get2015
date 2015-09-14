@@ -7,7 +7,7 @@ import model.Vehicle;
 
 import org.junit.Test;
 
-public class VehicleDetailPrinter {
+public class VehicleDetailPrinterTest {
 
 	@Test
 	public void testVehicalDetailPrinterForBike() {
