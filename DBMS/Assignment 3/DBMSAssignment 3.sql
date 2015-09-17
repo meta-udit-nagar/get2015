@@ -134,7 +134,8 @@ WHERE (m.member_id = b.member_id && t.title_id = bk.title_id && bk.accession_No 
 
 -- QN 2
 
-Select member_name,length(member_name) as lengthOfName from members where length(member_name) in (Select max(length(member_name)) from members);
+  Select member_name,length(member_name) as lengthOfName from members where length(member_name) = (Select max(length(member_name)) from members);
+
 
 -- QN 3
 select count(distinct accession_no) from book_issue ;
@@ -164,7 +165,7 @@ select (Select count(category) from members where category="f") as female,(Selec
 select t.* from title t,book_issue bi,books b where b.accession_no=bi.accession_no and b.title_id=t.title_id group by t.title_id having count(bi.accession_no)>2;
 -- Qn 3
 
-select bi.* from  book_issue bi,members m where m.member_id=bi.member_id and m.category NOT IN("f");
+ select bi.* from  book_issue bi,members m where m.member_id=bi.member_id and m.category <>("f");
 
 -- Qn 4
 select a.* from author a,title_author at,books b where a.author_id=at.author_id and at.title_id=b.title_id group by a.author_name ;
