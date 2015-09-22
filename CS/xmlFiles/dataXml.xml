@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<vehicle type="car">
+		<id>1</id>
+		<make>Ford</make>
+		<model>EcoSports</model>
+		<enginInCC>500</enginInCC>
+		<fuelCapacity>12</fuelCapacity>
+		<milage>15</milage>
+		<price>10000</price>
+		<roadTax>45000</roadTax>
+		<AC>false</AC>
+		<powerSteering>true</powerSteering>
+		<accessoryKit>true</accessoryKit>
+
+	</vehicle>
+
+	<vehicle type="bike">
+		<id>2</id>
+		<make>Honda</make>
+		<model>Activa</model>
+		<enginInCC>110</enginInCC>
+		<fuelCapacity>5</fuelCapacity>
+		<milage>40</milage>
+		<price>10000</price>
+		<roadTax>450</roadTax>
+		<selfStart>true</selfStart>
+		<helmetPrize>200</helmetPrize>
+	</vehicle>
+
+</config> 
