@@ -1,0 +1,9 @@
+@CHARSET "ISO-8859-1";
+
+#Canvas {
+	width: 400px;
+	height: 200px;
+	margin-left: 600px;
+	margin-top: 250px;
+	border:1px solid #d3d3d3;
+}

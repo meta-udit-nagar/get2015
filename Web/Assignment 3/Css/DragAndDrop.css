@@ -1,0 +1,16 @@
+@CHARSET "ISO-8859-1";
+
+body div 
+{
+	float: left;
+	width: 400px;
+	height:400px;
+	margin: 120px;
+	padding: 10px;
+	border: 1px solid #aaaaaa;
+}
+
+body div img {
+	width = 20px; 
+	height = 20px;
+}
