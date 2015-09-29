@@ -1,0 +1,21 @@
+@CHARSET "ISO-8859-1";
+
+@keyframes animation
+{
+	0% {border:solid 1px;background-color: #FF3300;left:450px;top:100px;}
+	50% {border:solid 1px;background-color: #FFFFFF;left:450px;top:166px;}
+	100%  {border:solid 1px;background-color: #006600;left:450px;top:232px;}
+	
+		
+}
+
+#animation
+{
+	height: 66px;
+	width: 300px;	
+	position: relative;
+	animation-name:animation;
+	animation-duration:3s;
+	animation-iteration-count:3;
+	
+}

@@ -1,0 +1,23 @@
+@CHARSET "ISO-8859-1";
+
+#container {
+	padding-top: 100px; margin : auto;
+	width: 1000px;
+	height: 700px;
+	background-image: url("tree.png"), url("texture.jpg");
+	background-position: right bottom, left top;
+	background-repeat: no-repeat, repeat;
+	margin: auto;
+}
+
+#leaf {
+	margin: auto; width : 200px;
+	height: 120px;
+	background-color: green;
+	border-width: 4px 30px 4px 30px;
+	border-style: solid;
+	border-color: blue blue red red;
+	border-radius: 0 120px 0 120px;
+	-webkit-border-radius: 0 120px 0 120px;
+	width: 200px;
+}
