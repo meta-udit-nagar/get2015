@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+<script>
+	function setroadTax() {
+
+		document.getElementById("roadtax").value = (document
+				.getElementById("showroomprice").value * 5) / 100;
+
+	}
+	function roadPrice() {
+
+		document.getElementById("roadprice").value = Number((document
+				.getElementById("showroomprice").value))
+				+ Number((document.getElementById("roadtax").value))
+
+	}
+</script>
+</head>
+<body>
+	<header>
+		Car Dekho<span id="com">.com</span>
+	</header>
+	<section id="home_image"></section>
+	<nav>
+		<ul>
+			<li><a href="#">Home</a></li>
+			<li><a href="search.html">Search</a></li>
+		</ul>
+
+	</nav>
+	<section id="about_create">
+		<div id="form">
+			<div class="form_heading">Create</div>
+			<form action="loggedin.html">
+				<table cellspacing="10px">
+					<tr>
+						<td>Company</td>
+						<td>:</td>
+						<td><input type="text" id="company" name="company" required></td>
+					</tr>
+					<tr>
+						<td>Model</td>
+						<td>:</td>
+						<td><input type="text" id="model" name="model" required></td>
+					</tr>
+					<tr>
+						<td>EngineInCC</td>
+						<td>:</td>
+						<td><input type="number" id="engine" name="engine" required></td>
+					</tr>
+					<tr>
+						<td>FuelCapacity</td>
+						<td>:</td>
+						<td><input type="number" id="fuel" name="fuel" required></td>
+					</tr>
+					<tr>
+						<td>Milage</td>
+						<td>:</td>
+						<td><input type="number" id="milage" name="milage" required></td>
+					</tr>
+					<tr>
+						<td>Ex-showroomPrice</td>
+						<td>:</td>
+						<td><input type="number" id="showroomprice"
+							name="showroomprice" required></td>
+					</tr>
+					<tr>
+						<td>RoadTax</td>
+						<td>:</td>
+						<td><input type="number" id="roadtax" name="roadtax"
+							onclick="setroadTax()" required readonly></td>
+					</tr>
+					<tr>
+						<td>OnRoadPrice</td>
+						<td>:</td>
+						<td><input type="number" id="roadprice" name="roadprice"
+							required onclick="roadPrice() " readonly></td>
+					</tr>
+					<tr>
+
+						<td><input type="submit" name="submit" class="btn"></td>
+					</tr>
+
+
+
+				</table>
+
+			</form>
+		</div>
+		.
+	</section>
+	<footer>
+		Home|Search|Create <br /> Copyright © 2015. All rights Reserved.
+	</footer>
+</body>
+</html>
