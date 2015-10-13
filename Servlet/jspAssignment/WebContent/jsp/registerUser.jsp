@@ -1,15 +1,17 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Registration</title>
-<link href="formCss.css" rel="stylesheet" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Register User</title>
+<link href="../css/formCss.css" rel="stylesheet" />
 </head>
 <body>
-	<form method="post" action="DoGetInput">
+	<form method="post" action="../DoAddUser">
 		<div class="form">
 			<div class="form_heading">Registration</div>
-			<table cellspacing ="10">
+			<table cellspacing="10">
 				<tr>
 					<td>Name</td>
 					<td>:</td>

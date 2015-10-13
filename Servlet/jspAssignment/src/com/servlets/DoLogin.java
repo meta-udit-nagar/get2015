@@ -1,7 +1,6 @@
 package com.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,17 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.helper.UserHelper;
+import com.model.User;
+
 /**
- * Servlet implementation class DoShowOutput
+ * Servlet implementation class DoLogin
  */
-@WebServlet("/DoShowOutput")
-public class DoShowOutput extends HttpServlet {
+public class DoLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public DoShowOutput() {
+	public DoLogin() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -30,15 +31,9 @@ public class DoShowOutput extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
-		System.out.println("54354  " + request.getAttribute("error"));
-		if (request.getAttribute("error").equals("")
-				|| request.getAttribute("error").equals(null)) {
+		// TODO Auto-generated method stub
 
-			out.println("correct input");
-		} else
-			out.println(request.getAttribute("error"));
-
+		doGet(request, response);
 	}
 
 	/**
@@ -47,8 +42,27 @@ public class DoShowOutput extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 
-		doGet(request, response);
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+
+		User user = new User();
+		user.setEmail(email);
+		user.setPassword(password);
+
+		String message = "";
+		if (UserHelper.isValidUser(user)) {
+			message = "Login Successfull";
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("jsp/messagepage.jsp").forward(
+					request, response);
+		} else {
+
+			response.sendRedirect("jsp/login.jsp");
+
+		}
+
 	}
 
 }
