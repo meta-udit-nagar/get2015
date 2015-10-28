@@ -21,7 +21,7 @@ public class CarDbHelper extends VehicleDbHelper{
 		if(connection != null) {
 			PreparedStatement preparedStatement = null;
 				try {
-					super.create(connection, car);
+					super.edit(connection, car);
 					super.getLastVehicleId(connection, car);
 					
 						preparedStatement = connection.prepareStatement(insert_car_query);
