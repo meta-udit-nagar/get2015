@@ -1,0 +1,41 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from EmployeeWebControllerService WSDL service -->
+
+  <service name="EmployeeWebController" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://controller.employee.com"/>
+      <parameter name="wsdlServiceElement" value="EmployeeWebControllerService"/>
+      <parameter name="schemaQualified" value="http://controller.employee.com"/>
+      <parameter name="wsdlServicePort" value="EmployeeWebController"/>
+      <parameter name="className" value="com.employee.controller.EmployeeWebControllerSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="EmployeeWebController"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="create" qname="operNS:create" xmlns:operNS="http://controller.employee.com" soapAction="" >
+        <parameter qname="pns:in0" xmlns:pns="http://controller.employee.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:in1" xmlns:pns="http://controller.employee.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="retrieveById" qname="operNS:retrieveById" xmlns:operNS="http://controller.employee.com" returnQName="retNS:retrieveByIdReturn" xmlns:retNS="http://controller.employee.com" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:in0" xmlns:pns="http://controller.employee.com" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="retrieveAll" qname="operNS:retrieveAll" xmlns:operNS="http://controller.employee.com" returnQName="retNS:retrieveAllReturn" xmlns:retNS="http://controller.employee.com" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+      </operation>
+      <operation name="deleteById" qname="operNS:deleteById" xmlns:operNS="http://controller.employee.com" soapAction="" >
+        <parameter qname="pns:in0" xmlns:pns="http://controller.employee.com" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="retrieveAllByName" qname="operNS:retrieveAllByName" xmlns:operNS="http://controller.employee.com" returnQName="retNS:retrieveAllByNameReturn" xmlns:retNS="http://controller.employee.com" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:in0" xmlns:pns="http://controller.employee.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="retrieveAllByName deleteById create retrieveAll retrieveById"/>
+
+  </service>
+</deployment>
