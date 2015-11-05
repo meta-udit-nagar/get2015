@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1" name="viewport" content="width=device-width, initial">
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="Js/jquery-1.11.3.js"></script>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/stylesheet">
+<link href="Css/Question1Css.css" rel="stylesheet" type="text/stylesheet">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container-fluid well">
+		<form action="">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 rowtag">
+					<span class="glyphicon glyphicon-facetime-video visible-xs pull-left image"></span><h2 class="hidden-xs">Sample From</h2>
+				</div>
+			</div>
+			<div class="row padding">
+				<div class="col-lg-1 col-md-1 col-sm-4 col-xs-12"><label for="movieTitle">Movie Title</label></div>
+				<div class="col-lg-5 col-md-5 col-sm-6 col-xs-12"><input id="movieTitle" class="form-control" type="text" value="Enter title here"></div>
+				<div class="col-lg-1 col-md-1 col-sm-4 col-xs-12"><label for="genre">Genre</label></div>
+				<div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+					<select id="genre" class="form-control">
+						<option value="blank">--Select Genre--</option>
+						<option value="Jazz">Jazz</option>
+						<option value="pop">Pop</option>
+					</select>
+				</div>
+			</div>
+			<div class="row padding">
+				<div class="col-lg-1 col-md-1 col-sm-4 col-xs-12"><label for="director">Director</label></div>
+				<div class="col-lg-2 col-md-5 col-sm-6 col-xs-12"><input id="director" class="form-control" type="text" value="Enter director here"></div>
+				<div class="col-lg-1 col-md-1 col-sm-4 col-xs-12"><label for="writer">Writer</label></div>
+				<div class="col-lg-2 col-md-5 col-sm-6 col-xs-12"><input id="writer" class="form-control" type="text" value="Enter writer here"></div>
+				<div class="col-lg-1 col-md-1 col-sm-4 col-xs-12"><label for="producer">Producer</label></div>
+				<div class="col-lg-2 col-md-5 col-sm-6 col-xs-12"><input id="producer" class="form-control" type="text" value="Enter producer here"></div>
+				<div class="col-lg-1 col-md-1 col-sm-4 col-xs-12"><label for="composer">Composer</label></div>
+				<div class="col-lg-2 col-md-5 col-sm-6 col-xs-12"><input id="composer" class="form-control" type="text" value="Enter composer here"></div>
+			</div>
+			<div class="row padding">
+				<div class="col-lg-1 col-md-1 col-sm-4 col-xs-12"><label for="website">Website</label></div>
+				<div class="col-lg-5 col-md-5 col-sm-6 col-xs-12"><input id="website" class="form-control" type="text" value="Enter website link"></div>
+				<div class="col-lg-1 col-md-1 col-sm-4 col-xs-12"><label for="trailer">Youtube trailer</label></div>
+				<div class="col-lg-5 col-md-5 col-sm-6 col-xs-12"><input id="trailer" class="form-control" type="text" value="Trailer link"></div>
+			</div>
+			<div class="row padding">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><label for="textArea">Review</label></div>
+			</div>
+			<div class="row padding">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><textarea id="textArea" rows="10" class="form-control"></textarea></div>
+			</div>
+			<div class="row padding">
+				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12"><label>Rating</label></div>
+				<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 text-danger"><input type="radio" name="rating" value="terrible"> Terrible</div>
+				<div class="col-lg-3 col-md-3 col-sm-4 col-xs12 text-info"><input type="radio" name="rating" value="watchable"> Watchable</div>
+				<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 text-success"><input type="radio" name="rating" value="best"> Best Ever</div>
+			</div>
+			<div class="row padding">
+				<div class="col-lg-3 col-md-3"></div>
+				<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+					<button class="btn btn-default">Cancel</button>
+					<button class="btn btn-info">Validate</button>
+					<button class="btn btn-success">Submit</button>
+					<button class="btn btn-danger">Delete</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+@CHARSET "ISO-8859-1";
+
+.rowtag {
+	text-align: center;
+}
+
+.image {
+	font-size: xx-large;
+}
+
+.padding {
+	padding-top: 20px;
+}
